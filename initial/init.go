@@ -1,0 +1,4 @@
+package initial
+
+func init() {
+}
