@@ -8,7 +8,7 @@ import (
 
 func init() {
 
-	//微信服务号信息处理
+	//微信公众号信息处理
 	beego.Router("/wechat", &wechat.MainServiceController{})
 
 }

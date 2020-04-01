@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/spf13/viper"
 	_ "wxTribe/initial"
 	_ "wxTribe/routers"
 
@@ -8,5 +9,5 @@ import (
 )
 
 func main() {
-	beego.Run(":9000")
+	beego.Run(viper.GetString("addr"))
 }
