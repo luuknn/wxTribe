@@ -21,3 +21,8 @@ func (c *BaseController) ResponseMessage(code int, data interface{}, message str
 	c.Data["json"] = out
 	c.ServeJSON()
 }
+
+func (c *BaseController) Output(bodyContent []byte, contentType string) {
+	c.Ctx.Output.ContentType(contentType)
+	c.Ctx.Output.Body(bodyContent)
+}
