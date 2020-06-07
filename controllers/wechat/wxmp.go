@@ -11,6 +11,8 @@ import (
 	"gopkg.in/chanxuehong/wechat.v2/mp/message/callback/response"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"os/exec"
 	"wxTribe/controllers"
 	"wxTribe/dto"
 )
@@ -63,6 +65,18 @@ func textMsgHandler(ctx *core.Context) {
 	logs.Info("收到文本消息:\n", getRequestXml(ctx))
 	msg := request.GetText(ctx.MixedMsg)
 	switch msg.Content {
+	case "dy":
+		fmt.Println("****receive txt dy****")
+		cmd := &exec.Cmd{
+			Path:   "/root/shell/dy",
+			Args:   []string{"./cdy"},
+			Stdout: os.Stdout,
+			Stderr: os.Stdout,
+		}
+		if err := cmd.Run(); err != nil {
+			fmt.Println("****** run cdy failed", err.Error())
+		}
+
 	default:
 		// https://openai.weixin.qq.com/openapi/message/TOKEN 普通消息接口 只签名不加密
 		signedToken, _ := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), jwt.MapClaims{"username": msg.FromUserName, "msg": msg.Content}).SignedString([]byte(viper.GetString("airobot-benben.encodingAESKey")))
